@@ -10,10 +10,9 @@ export default function Content() {
     setCity(e.target.value);
     setErro(" ");
   };
-
   const handleSearch = () => {
     fetch(
-      `http://api.weatherapi.com/v1/current.json?key=50cb68bc336f4d928f3234126220909&q=${city}&lang=pt`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=5746620f81f9eb4b6a31284d8588ef6e&lang=pt_br`
     )
       .then((res) => {
         if (res.status === 200) {
@@ -24,22 +23,8 @@ export default function Content() {
       })
       .then((data) => {
         setClimate(data);
-        console.log(data);
-      });
-
-    fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=50cb68bc336f4d928f3234126220909&q=${city}&lang=pt`
-    )
-      .then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        }
-      })
-      .then((data) => {
-        setForecastday(data);
       });
   };
-
   return (
     <div className="area">
       <div className="header">
@@ -66,39 +51,39 @@ export default function Content() {
             <div>
               <div className="climate-area">
                 <div>
-                  <p>
-                    <img src={climate.current.condition.icon} />
-                  </p>
+                  <h1>
+                    {climate.name}, {climate.sys.country}
+                  </h1>
                 </div>
                 <div>
-                  <p className="temp"> {climate.current.temp_c}ºC</p>
-                </div>
-                <div>
-                  <p>{climate.current.condition.text}</p>
+                  <p className="temp"> {parseInt(climate.main.temp)}ºC</p>
                 </div>
                 <div>
                   <p>
-                    {climate.location.name}, {climate.location.region}
+                    {climate.weather[0].description}
+                    <img
+                      src={`http://openweathermap.org/img/wn/${climate.weather[0].icon}.png`}
+                    />
                   </p>
                 </div>
               </div>
             </div>
           ) : null}
           <div className="forecastday-area">
-            {forecastday ? (
+            {climate ? (
               <div className="forecastday-temp">
                 <div>
                   <p>
                     Temp. Minima:
                     <br></br>
-                    {forecastday.forecast.forecastday[0].day.mintemp_c}%
+                    {climate.main.temp_min}%
                   </p>
                 </div>
                 <div>
                   <p>
                     Temp. Máxima:
                     <br></br>
-                    {forecastday.forecast.forecastday[0].day.maxtemp_c}%
+                    {climate.main.temp_max}%
                   </p>
                 </div>
               </div>
@@ -112,20 +97,20 @@ export default function Content() {
                 <div>
                   <p>
                     <i className="fa-solid fa-droplet"></i>
-                    Umidade: {climate.current.humidity} %
+                    Umidade: {climate.main.humidity} %
                   </p>
                 </div>
                 <div>
                   <p>
                     <i className="fa-solid fa-wind"></i>
-                    Vento: {climate.current.wind_kph} km/h
+                    Vento: {climate.wind.speed} km/h
                   </p>
                 </div>
                 <div>
                   {" "}
                   <p>
                     <i className="fa-solid fa-cloud"></i>
-                    Nuvens: {climate.current.cloud} %
+                    Nuvens: {climate.clouds.all} %
                   </p>
                 </div>
               </div>
