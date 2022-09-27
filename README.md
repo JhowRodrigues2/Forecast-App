@@ -3,7 +3,7 @@
  o App faz a busca de acordo com a cidade buscada em uma API e retorna com as condições climáticas.
  # Tecnologia
 <ul> <li><a href="https://reactjs.org/">ReactJs</a></li>
-<li><a href="https://www.weatherapi.com/">WeatherAPI.com
+<li><a href="https://openweathermap.org/api">Openweathermap
 </a></li>
 </u>
 
