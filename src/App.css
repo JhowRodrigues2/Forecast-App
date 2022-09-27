@@ -33,8 +33,7 @@ body {
 }
 
 .main-area {
-  padding-left: 10px;
-  padding-top: 10px;
+  padding: 10px;
   min-height: 80vh;
   width: 90%;
   display: flex;
@@ -87,7 +86,7 @@ body {
 }
 .climate-area {
   border-bottom: 1px solid;
-  min-height: 40vh;
+  min-height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -123,22 +122,25 @@ body {
 .fa-droplet {
   color: #6ddfdb;
 }
-.forecastday-area {
-  min-height: 20vh;
-  min-width: 100%;
-}
+
 .forecastday-temp {
   height: 20vh;
   display: flex;
   justify-content: space-around;
 }
-.forecastday-temp p {
-  width: 220px;
-  height: 10vh;
+.forecastday-temp div {
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
 }
+.forecastday-temp div span {
+  font-size: 13.5px;
+}
+.forecastday-temp div p {
+  margin-top: 5px;
+}
+
 .div-right-img {
   width: 100%;
   height: 50vh;

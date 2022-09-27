@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Content() {
   const [city, setCity] = useState("");
   const [climate, setClimate] = useState(null);
-  const [forecastday, setForecastday] = useState(null);
   const [erro, setErro] = useState("");
 
   const handleChange = (e) => {
     setCity(e.target.value);
     setErro(" ");
   };
+
+  //fetches the data in the API according to the city
   const handleSearch = () => {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=5746620f81f9eb4b6a31284d8588ef6e&lang=pt_br`
@@ -25,6 +26,12 @@ export default function Content() {
         setClimate(data);
       });
   };
+
+  //capitalize first letter of description to uppercase
+  const capitalizeString = (string) => {
+    return string[0].toUpperCase() + string.slice(1);
+  };
+
   return (
     <div className="area">
       <div className="header">
@@ -60,7 +67,7 @@ export default function Content() {
                 </div>
                 <div>
                   <p>
-                    {climate.weather[0].description}
+                    {capitalizeString(climate.weather[0].description)}
                     <img
                       src={`http://openweathermap.org/img/wn/${climate.weather[0].icon}.png`}
                     />
@@ -69,22 +76,20 @@ export default function Content() {
               </div>
             </div>
           ) : null}
-          <div className="forecastday-area">
+          <div>
             {climate ? (
               <div className="forecastday-temp">
                 <div>
-                  <p>
-                    Temp. Minima:
-                    <br></br>
-                    {climate.main.temp_min}%
-                  </p>
+                  <span> Senstação térmica: </span>
+                  <p>{climate.main.feels_like.toFixed(1)} ºC</p>
                 </div>
                 <div>
-                  <p>
-                    Temp. Máxima:
-                    <br></br>
-                    {climate.main.temp_max}%
-                  </p>
+                  <span>Temp. Minima:</span>
+                  <p>{climate.main.temp_min.toFixed(1)}%</p>
+                </div>
+                <div>
+                  <span>Temp. Máxima:</span>
+                  <p>{climate.main.temp_max.toFixed(1)}%</p>
                 </div>
               </div>
             ) : null}
