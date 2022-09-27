@@ -123,7 +123,9 @@ export default function Content() {
           </div>
           <div className="div-right-img">
             <div>
-              {climate ? <img src="src\Components\img\sun.svg"></img> : null}
+              {climate ? (
+                <img src="https://climate-app.vercel.app/static/media/sun.a9155525.svg"></img>
+              ) : null}
             </div>
           </div>
         </div>
