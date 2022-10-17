@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import Sun from "../Components/img/sun.svg";
+
 export default function Content() {
   const [city, setCity] = useState("");
   const [climate, setClimate] = useState(null);
@@ -122,17 +124,13 @@ export default function Content() {
             ) : null}
           </div>
           <div className="div-right-img">
-            <div>
-              {climate ? (
-                <img src="https://climate-app.vercel.app/static/media/sun.a9155525.svg"></img>
-              ) : null}
-            </div>
+            <div>{climate ? <img src={Sun}></img> : null}</div>
           </div>
         </div>
       </div>
       <div className="footer">
         <p>
-          By{" "}
+          By
           <a href="https://github.com/JhowRodrigues2" target="_blank">
             Jhow Rodrigues
           </a>
