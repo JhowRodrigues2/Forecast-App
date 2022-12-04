@@ -1,6 +1,11 @@
 import { useState } from "react";
-
-import Sun from "../Components/img/sun.svg";
+import Sun from "../assets/img/sun.svg";
+import initialImg from "../assets/img/initial.svg";
+import CityTemperature from "./CityTemperature";
+import InitialTemplate from "./InitialTemplate";
+import ForecastDay from "./ForecastDay";
+import ClimateData from "./ClimateData";
+import Footer from "./Footer";
 
 export default function Content() {
   const [city, setCity] = useState("");
@@ -29,11 +34,6 @@ export default function Content() {
       });
   };
 
-  //capitalize first letter of description to uppercase
-  const capitalizeString = (string) => {
-    return string[0].toUpperCase() + string.slice(1);
-  };
-
   return (
     <div className="area">
       <div className="header">
@@ -57,85 +57,52 @@ export default function Content() {
             {erro}
           </p>
           {climate ? (
-            <div>
-              <div className="climate-area">
-                <div>
-                  <h1>
-                    {climate.name}, {climate.sys.country}
-                  </h1>
-                </div>
-                <div>
-                  <p className="temp"> {parseInt(climate.main.temp)}ºC</p>
-                </div>
-                <div>
-                  <p>
-                    {capitalizeString(climate.weather[0].description)}
-                    <img
-                      src={`http://openweathermap.org/img/wn/${climate.weather[0].icon}.png`}
-                    />
-                  </p>
-                </div>
-              </div>
-            </div>
-          ) : null}
+            <CityTemperature
+              city={climate.name}
+              country={climate.sys.country}
+              temp={parseInt(climate.main.temp)}
+              description={climate.weather[0].description}
+              icon={`http://openweathermap.org/img/wn/${climate.weather[0].icon}.png`}
+            />
+          ) : (
+            <InitialTemplate />
+          )}
           <div>
             {climate ? (
-              <div className="forecastday-temp">
-                <div>
-                  <span> Senstação térmica: </span>
-                  <p>{climate.main.feels_like.toFixed(1)} ºC</p>
-                </div>
-                <div>
-                  <span>Temp. Minima:</span>
-                  <p>{climate.main.temp_min.toFixed(1)}%</p>
-                </div>
-                <div>
-                  <span>Temp. Máxima:</span>
-                  <p>{climate.main.temp_max.toFixed(1)}%</p>
-                </div>
-              </div>
-            ) : null}
+              <ForecastDay
+                feels_like={climate.main.feels_like.toFixed(1)}
+                temp_min={climate.main.temp_min.toFixed(1)}
+                temp_max={climate.main.temp_max.toFixed(1)}
+              />
+            ) : (
+              <ForecastDay feels_like={"0"} temp_min={"0"} temp_max={"0"} />
+            )}
           </div>
         </div>
         <div className="div-right">
           <div>
             {climate ? (
-              <div className="climate-data">
-                <div>
-                  <p>
-                    <i className="fa-solid fa-droplet"></i>
-                    Umidade: {climate.main.humidity} %
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <i className="fa-solid fa-wind"></i>
-                    Vento: {climate.wind.speed} km/h
-                  </p>
-                </div>
-                <div>
-                  {" "}
-                  <p>
-                    <i className="fa-solid fa-cloud"></i>
-                    Nuvens: {climate.clouds.all} %
-                  </p>
-                </div>
-              </div>
-            ) : null}
+              <ClimateData
+                humidity={climate.main.humidity}
+                windSpeed={climate.wind.speed}
+                cloudsAll={climate.clouds.all}
+              />
+            ) : (
+              <ClimateData humidity={"0"} windSpeed={"0"} cloudsAll={"0"} />
+            )}
           </div>
           <div className="div-right-img">
-            <div>{climate ? <img src={Sun}></img> : null}</div>
+            <div>
+              {climate ? (
+                <img src={Sun} alt="Sun"></img>
+              ) : (
+                <img src={initialImg} alt="initial icon" />
+              )}
+            </div>
           </div>
         </div>
       </div>
-      <div className="footer">
-        <p>
-          By
-          <a href="https://github.com/JhowRodrigues2" target="_blank">
-            Jhow Rodrigues
-          </a>
-        </p>
-      </div>
+      <Footer />
     </div>
   );
 }
