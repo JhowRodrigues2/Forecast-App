@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import Sun from "../assets/img/sun.svg";
 import initialImg from "../assets/img/initial.svg";
 import CityTemperature from "./CityTemperature";
@@ -11,6 +11,7 @@ export default function Content() {
   const [city, setCity] = useState("");
   const [climate, setClimate] = useState(null);
   const [erro, setErro] = useState("");
+  const btRef = useRef(null);
 
   const handleChange = (e) => {
     setCity(e.target.value);
@@ -48,8 +49,11 @@ export default function Content() {
             value={city}
             onChange={handleChange}
             placeholder="Digite a cidade..."
+            onKeyDown={(e) =>
+              e.key === "Enter" ? btRef.current.focus() : undefined
+            }
           />{" "}
-          <button onClick={handleSearch}>
+          <button onClick={handleSearch} ref={btRef}>
             <i className="fa-solid fa-magnifying-glass"></i>
           </button>
           <br />
