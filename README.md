@@ -9,6 +9,5 @@
 
 
 
-# PRINTS
-<a href="https://imgur.com/Ny2Q9pf"><img src="https://i.imgur.com/Ny2Q9pf.png" title="source: imgur.com" /></a>
-<a href="https://imgur.com/qabQboz"><img src="https://i.imgur.com/qabQboz.png" title="source: imgur.com" /></a>
+# Deploy do Projeto
+<a href="https://forecast-app-nu.vercel.app/">Forecast App</a>
